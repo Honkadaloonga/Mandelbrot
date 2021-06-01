@@ -75,7 +75,7 @@ public class App {
             System.out.println((x+1) + "/" + width);
         }
 
-        File outfile = new File(Paths.get("").toAbsolutePath() + "/out.png");
+        File outfile = new File(Paths.get("").toAbsolutePath() + "/out/out.png");
         System.out.println(outfile.getAbsolutePath());
         ImageIO.write(cvs, "png", outfile);
         System.out.println("Done");
