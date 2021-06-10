@@ -33,6 +33,7 @@ public class App {
         double reachY = 2/magnitude;
 
         double power = 2;
+        double inverseLogPower = 1.0/log(power);
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -49,15 +50,14 @@ public class App {
                     Complex c = z.copy();
 
                     for (int j = 0; j < maxIter; j++) {
-                        z.set(z.copy().pow(1).div(2).add(z.copy().pow(-power/2).div(2)).pow(2).add(c));
+                        z.set(z.copy().pow(1).div(2).add(z.copy().pow(-2).div(2)).pow(power).add(c));
                         //z.set(z.copy().pow(power).add(c));
 
                         if (z.magSqr() > 1e64) {
-                            double delta = log(log(z.magSqr()) * 0.5D) / log(power);
-                            double br = j - delta;
+                            double br = j - (log(log(z.magSqr()) * 0.5D) * inverseLogPower);
                             br += 15;
                             br = sqrt(br);
-                            br /= 2.0;
+                            br *= 0.5;
                             br %= 1;
                             Color tempColor = ramp.get(br);
                             colVals[0] += tempColor.getRed();
